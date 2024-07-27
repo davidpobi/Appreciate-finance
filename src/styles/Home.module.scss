@@ -1,0 +1,48 @@
+ @import "variables";
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+ }
+
+
+ .main {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+ }
+
+
+ .heroBox {
+  position: relative;
+  width: 100%;
+  height: 54%;
+  background-color: rgb(21, 50, 77);
+ 
+  .messageBox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+
+   
+  .graphicBox {
+    width: 100%;
+    height: 100%;
+ 
+    .img {
+      position: relative;
+      // top:-200px;
+      object-fit: cover;
+    }
+  }
+
+
+ }
+
+
+
