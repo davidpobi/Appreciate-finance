@@ -1,4 +1,4 @@
-# Personal Wealth Dashboard for Alpaca Trading API
+# Personal Wealth Dashboard for Alpaca Trading API - Next.js, MUI, Firebase, Alpaca, OpenAI
 
 This application interfaces with the Alpaca Trading API and was created to enhance my investing experience. I found existing tools too complex and lacking essential features, so I decided to build something more user-friendly and minimalist. The aim is to provide an easy-to-use interface for buying and managing my favorite assets. It’s an ongoing project, and I will keep updating it as I gain more insights on my investing journey
 
