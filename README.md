@@ -10,8 +10,6 @@ This application interfaces with the Alpaca Trading API and was created to enhan
 - OpenAI (LLM)
 
 
-[Demo](https://appreciate.vercel.app)
-
 Responsive on desktop and mobile devices. Tablet screens coming soon.
 
 
