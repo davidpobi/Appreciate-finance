@@ -38,4 +38,10 @@ export const stockList: Stock[] = [
     imageUrl: "https://logo.clearbit.com/oklo.com",
     defaultBuyAmount: 100,
   },
+  {
+    name: "Unity",
+    symbol: "U",
+    imageUrl: "https://logo.clearbit.com/unity.com",
+    defaultBuyAmount: 25,
+  },
 ];

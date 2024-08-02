@@ -14,6 +14,7 @@ const AccountWidget = () => {
   const { refresh } = useAppSelector((state) => state.alpaca);
   const [account, setAccount] = useState<Account | null>(null);
   const [buyingPower, setBuyingPower] = useState(0);
+  const [cash, setCash] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const getAccount = async () => {
@@ -26,7 +27,8 @@ const AccountWidget = () => {
       setAccount(account);
       dispatch(setAccountInfo({ data: account }));
       dispatch(setRefresh({ state: false }));
-      setBuyingPower(Number(data.buying_power.toFixed(2)));
+      setBuyingPower(Number(account.buying_power.toFixed(2)));
+      setCash(Number(account.cash.toFixed(2)));
       setLoading(false);
     }
   };
@@ -97,7 +99,7 @@ const AccountWidget = () => {
             <h1>
               <span className="label">Balance: </span>
 
-              <FormatAmount amount={buyingPower || 0} />
+              <FormatAmount amount={cash || 0} />
             </h1>
           )}
 
