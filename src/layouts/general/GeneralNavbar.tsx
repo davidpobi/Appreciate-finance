@@ -46,9 +46,16 @@ const GeneralNavBar = () => {
   const theme = useTheme();
   const router = useRouter();
   const [title, setTitle] = React.useState("");
-  const { isAuthenticated, user } = useAppSelector((state: RootState) => state.auth);
-  const selectedTheme = useAppSelector((state: RootState) => state.theme.selectedTheme);
-  const isLive = useAppSelector((state: RootState) => state.alpaca.isLive);
+  const { isAuthenticated, user } = useAppSelector((state: RootState) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+  }));
+  const { selectedTheme } = useAppSelector((state: RootState) => ({
+    selectedTheme: state.theme.selectedTheme,
+  }));
+  const { isLive } = useAppSelector((state: RootState) => ({
+    isLive: state.alpaca.isLive,
+  }));
   const [anchorMenuNav, setAnchorMenuNav] = React.useState<null | HTMLElement>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
