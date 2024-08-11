@@ -11,9 +11,7 @@ const AccountWidget = () => {
   const isFirstRender = useRef(true);
   const dispatch = useAppDispatch();
   const theme = useTheme();
-  const { refresh } = useAppSelector((state) => ({
-    refresh: state.alpaca.refresh,
-  }));
+  const refresh = useAppSelector((state) => state.alpaca.refresh);
   const [account, setAccount] = useState<Account | null>(null);
   const [buyingPower, setBuyingPower] = useState(0);
   const [cash, setCash] = useState(0);

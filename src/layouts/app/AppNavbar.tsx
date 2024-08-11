@@ -35,9 +35,7 @@ const AppNavbar = ({ pageTitle, isDashboardRoute }: NavbarProps) => {
   const [anchorLangugeNav, setAnchorLangugeNav] = React.useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [isNotificationsOpen, setNotificationsOpen] = React.useState(false);
-  const { user } = useAppSelector((state: RootState) => ({
-    user: state.auth.user,
-  }));
+  const user = useAppSelector((state: RootState) => state.auth.user);
   const [profile, setProfile] = React.useState<IProfile | null>(null);
   const [title, setTitle] = React.useState<string>("");
 

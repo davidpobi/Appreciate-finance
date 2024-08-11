@@ -10,9 +10,7 @@ import { Themes } from "../../interfaces/theme";
 
 const GeneralLayout = ({ children }: any) => {
   const [mode, setMode] = useState<Themes>(Themes.dark);
-  const { selectedTheme } = useAppSelector((state: RootState) => ({
-    selectedTheme: state.theme.selectedTheme,
-  }));
+  const selectedTheme = useAppSelector((state: RootState) => state.theme.selectedTheme);
 
   useEffect(() => {
     setMode(selectedTheme);
