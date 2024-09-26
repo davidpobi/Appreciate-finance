@@ -117,7 +117,7 @@ const AccountWidget = () => {
               color: theme.palette.mode === "dark" ? "#fff" : "#000",
             },
             ".pl": {
-              color: totalPL >= 0 ? "green" : "red",
+              color: plPercentage >= 0 ? theme.palette.success.main : theme.palette.error.main,
             },
           },
         }}

@@ -33,6 +33,12 @@ const GeneralLayout = ({ children }: any) => {
           text: {
             primary: mode === Themes.dark ? "#c4c4c4" : "#757575",
           },
+          success: {
+            main: "#00b300",
+          },
+          error: {
+            main: "#e60000",
+          },
         },
       }),
     [mode]

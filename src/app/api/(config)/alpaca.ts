@@ -1,6 +1,6 @@
 import { AlpacaClient as Alpaca_Client, AlpacaStream as Alpaca_Stream } from "@master-chief/alpaca";
 
-const isLive = false;
+const isLive = true;
 const api_key = (!isLive ? process.env.ALPACA_API_KEY : process.env.ALPACA_API_KEY_LIVE) || "";
 const secret = (!isLive ? process.env.ALPACA_API_SECRET : process.env.ALPACA_API_SECRET_LIVE) || "";
 

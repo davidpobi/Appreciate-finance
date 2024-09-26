@@ -43,6 +43,8 @@ const StockCard = React.memo(({ data, action }: StockCardProps) => {
   const profitLoss = currentValue - investmentAmount;
   const profitLossPercentage = investmentAmount !== 0 ? (profitLoss / investmentAmount) * 100 : 0;
 
+  console.log("profitLoss", profitLoss);
+
   // Format the percentage change
   const formattedPercentageChange = new Intl.NumberFormat("en-US", {
     style: "percent",
@@ -99,7 +101,11 @@ const StockCard = React.memo(({ data, action }: StockCardProps) => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" fontWeight="bold" color={profitLoss >= 0 ? "success.main" : "error.main"}>
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            color={profitLossPercentage >= 0 ? theme.palette.success.main : theme.palette.error.main}
+          >
             P/L: <FormatAmount amount={profitLoss} /> ({formattedPercentageChange})
           </Typography>
         </Grid>
