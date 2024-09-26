@@ -33,6 +33,12 @@ const Home = () => {
                 flexDirection: "column",
                 justifyContent: "center",
                 overflowX: "hidden",
+                padding: {
+                  xs: "0.5rem 0",
+                  sm: "0rem 0rem",
+                  md: "0rem 2rem",
+                  lg: "0rem 5rem",
+                },
                 ".markets-container": {
                   display: "flex",
                   flexDirection: "column",
@@ -41,9 +47,9 @@ const Home = () => {
                   width: "100%",
                   height: "100%",
                   padding: {
-                    xs: "1rem",
-                    sm: "4rem",
-                    md: "4rem",
+                    xs: "0.5rem 0rem",
+                    sm: "0.9rem 1rem",
+                    md: "1rem 1rem",
                   },
                 },
               },

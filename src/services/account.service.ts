@@ -63,7 +63,7 @@ export const GetAccountActivityHistory = async () => {
     const { success: success_, data: data_ } = result;
 
     console.log("success_", success_);
-    console.log("activity: ", data_);
+    console.log("activity: ", data_.length);
 
     success = success_;
     data = data_;

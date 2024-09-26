@@ -12,6 +12,7 @@ const storeLiveStatus = async (status: boolean, uid: string | null) => {
 
 const initialState: AlpacaState = {
   account: null,
+  transactions: null,
   refresh: false,
   isLive: null,
 };
@@ -23,6 +24,10 @@ const alpacaSlice = createSlice({
     setAccountInfo: (state, action) => {
       const account = action.payload.data;
       return { ...state, account: account };
+    },
+    setTransactions: (state, action) => {
+      const transactions = action.payload.transactions;
+      return { ...state, transactions: transactions };
     },
     setRefresh: (state, action) => {
       const refresh = action.payload.state;
@@ -38,5 +43,5 @@ const alpacaSlice = createSlice({
   },
 });
 
-export const { setAccountInfo, setRefresh, setLiveStatus } = alpacaSlice.actions;
+export const { setAccountInfo, setTransactions, setRefresh, setLiveStatus } = alpacaSlice.actions;
 export default alpacaSlice.reducer;

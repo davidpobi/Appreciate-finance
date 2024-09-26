@@ -41,6 +41,7 @@ export const GetAccountPositions = async () => {
     const positions = await AlpacaClient.getPositions();
 
     data = positions;
+    console.log("GetAccountPositions", GetAccountPositions);
     success = true;
   } catch (err) {
     console.log("GetAccountPositions Err", err);

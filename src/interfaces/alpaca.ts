@@ -2,6 +2,7 @@ import { Account, Order } from "@master-chief/alpaca";
 
 export interface AlpacaState {
   account: Account | null;
+  transactions: ITransaction[] | null;
   refresh: boolean;
   isLive: boolean | null;
 }
@@ -88,6 +89,7 @@ export interface ITransaction {
   symbol: string;
   type: TransactionType;
   amount: number;
+  qty: number;
   direction: Direction;
   side: Side;
   createdAt: string;

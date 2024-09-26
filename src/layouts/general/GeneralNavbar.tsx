@@ -114,10 +114,10 @@ const GeneralNavBar = () => {
           maxWidth={false}
           sx={{
             padding: {
-              xs: "0 10px",
-              sm: "0 2rem",
-              md: "0 3rem",
-              lg: "0 4rem",
+              xs: "0 15px",
+              sm: "0 2.3rem",
+              md: "0 5rem",
+              lg: "0 8rem",
             },
           }}
         >
@@ -130,11 +130,6 @@ const GeneralNavBar = () => {
                 alignItems: "center",
                 cursor: "pointer",
                 position: "relative",
-                ml: {
-                  xs: "5px",
-                  sm: "10px",
-                  md: "10px",
-                },
                 ".logo": {
                   background: "white",
                   borderRadius: "50%",

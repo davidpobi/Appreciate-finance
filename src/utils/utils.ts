@@ -21,11 +21,15 @@ export const processAccountActivities = (activities: any[]): ITransaction[] => {
       ? new Date(activity.transaction_time).toISOString()
       : new Date(activity.date).toISOString();
 
+    // Calculate the correct amount for FILL activities
+    const amount = activity.activity_type === "FILL" ? activity.price * activity.qty : activity.net_amount || 0;
+
     return {
       id: activity.id,
       symbol: activity.symbol,
       type: mapActivityTypeToTransactionType(activity.activity_type),
-      amount: activity.price || activity.net_amount,
+      amount: Math.abs(amount), // Use absolute value to ensure positive amount
+      qty: activity.qty,
       direction: direction,
       side: side,
       createdAt: createdAt,

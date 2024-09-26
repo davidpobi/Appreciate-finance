@@ -1,20 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-
-const initialState: any = {   
- activities: []
-} 
+const initialState: any = {
+  activities: [],
+};
 
 const activitySlice = createSlice({
-  name: 'activities',
+  name: "activities",
   initialState,
   reducers: {
-    setActivities : (state,action) => {
-     const newActivity = action.payload.activity;
-     return { ...state, activities: {...state.activities, newActivity}}
+    setActivities: (state, action) => {
+      const newActivity = action.payload.activity;
+      return { ...state, activities: { ...state.activities, newActivity } };
     },
   },
-})
+});
 
-export const { setActivities} = activitySlice.actions
-export default activitySlice.reducer
+export const { setActivities } = activitySlice.actions;
+export default activitySlice.reducer;

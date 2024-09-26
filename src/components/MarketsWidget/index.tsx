@@ -9,12 +9,14 @@ import { CreateOrderData } from "../../services/orders.service";
 import { IOrderQuery } from "../../interfaces/alpaca";
 import { handleNotify } from "../../redux/helpers";
 import { ToastTypes } from "../../interfaces/notifications";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { stockList } from "../../data/stock";
 import StockCard from "../Stock/stockCard";
 import { Stock } from "../../interfaces/stock";
 import Alert from "../Alert";
 import { setRefresh } from "../../redux/alpacaSlice";
+import { RootState } from "../../redux/store";
+import { ITransaction } from "../../interfaces/alpaca"; // Make sure this import exists
 
 const BUY_AMOUNT = 100;
 const MarketWidget = React.memo(() => {
@@ -23,6 +25,14 @@ const MarketWidget = React.memo(() => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [openConfirmPrompt, setOpenConfirmPrompt] = useState(false);
+  const transactions = useAppSelector((state: RootState) => state.alpaca.transactions);
+
+  const mergeStocksWithTransactions = (stocks: Stock[], transactions: ITransaction[]): Stock[] => {
+    return stocks.map((stock) => ({
+      ...stock,
+      transactions: transactions.filter((transaction) => transaction.symbol === stock.symbol),
+    }));
+  };
 
   const getAccountWatchlists = async () => {
     const { success, data } = await GetAccountWatchlists();
@@ -55,7 +65,8 @@ const MarketWidget = React.memo(() => {
     }
     return null;
   };
-  const getStockList = async () => {
+
+  const getStockList = async (transactions: ITransaction[]) => {
     const fetchAndMergePrice = async (stock: Stock) => {
       let price = await getLatestPrice(stock.symbol);
       price = Number(price?.toFixed(2));
@@ -66,9 +77,9 @@ const MarketWidget = React.memo(() => {
     };
 
     const updatedStockList = await Promise.all(stockList.map(fetchAndMergePrice));
+    const mergedStocks = mergeStocksWithTransactions(updatedStockList, transactions);
 
-    console.log("updatedStockList", updatedStockList);
-    setStocks(updatedStockList);
+    setStocks(mergedStocks);
   };
 
   const createNewOrder = async (stock: Stock) => {
@@ -80,7 +91,6 @@ const MarketWidget = React.memo(() => {
 
     const { success, data, message } = await CreateOrderData(order);
     if (success) {
-      console.log("data", data);
       handleCloseConfirm();
       dispatch(setRefresh({ state: true }));
       handleNotify("Order created successfully", 4000, ToastTypes.Success, dispatch);
@@ -113,14 +123,19 @@ const MarketWidget = React.memo(() => {
   };
 
   useEffect(() => {
+    if (transactions === null) {
+      return;
+    }
+
     if (isFirstRender.current) {
       isFirstRender.current = false;
       const initializeData = async () => {
-        await Promise.all([getStockList()]);
+        await Promise.all([getStockList(transactions)]);
       };
       initializeData();
     }
-  }, []);
+  }, [transactions]);
+
   return (
     <React.Fragment>
       <Box
@@ -129,13 +144,11 @@ const MarketWidget = React.memo(() => {
           width: "100%",
           height: "100%",
           borderRadius: "18px",
-          display: "flex",
-          justifyContent: "center",
           ".item": {
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            padding: "2rem",
+            padding: "1.2rem 0",
           },
           ".stocks": {
             width: {
@@ -156,20 +169,20 @@ const MarketWidget = React.memo(() => {
         }}
       >
         <div className="stocks">
-          <Grid container maxWidth={"100%"}>
+          <Grid container maxWidth={"100%"} columnGap={{ xs: 1, sm: 1.2, md: 1.5, lg: 2 }}>
             {stocks.length > 0 &&
               stocks.map((x: Stock, i: number) => (
-                <Grid item xs={12} sm={6} md={6} className="item" key={`${x.symbol}_${i}`}>
+                <Grid item xs={12} sm={5.9} md={5.9} lg={5.9} className="item" key={`${x.symbol}_${i}`}>
                   <StockCard data={x} action={showConfirmOrder} />
                 </Grid>
               ))}
 
             {stocks.length === 0 &&
               stockList.map((x: Stock, i: number) => (
-                <Grid item xs={12} sm={6} md={6} className="item" key={`${x.symbol}_${i}`}>
+                <Grid item xs={12} sm={5.9} md={5.9} lg={5.9} className="item" key={`${x.symbol}_${i}`}>
                   <Skeleton
                     variant="rectangular"
-                    sx={{ width: "177px", height: "95px", borderRadius: "12px", background: "gray" }}
+                    sx={{ width: "100%", height: "250px", borderRadius: "12px", background: "gray" }}
                   />
                 </Grid>
               ))}
