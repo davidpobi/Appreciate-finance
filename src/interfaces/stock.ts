@@ -8,3 +8,9 @@ export interface Stock {
   defaultBuyAmount?: number;
   transactions?: ITransaction[];
 }
+
+export interface IBuyStock {
+  amount: number;
+  // quantity?: number;
+  // price?: number;
+}

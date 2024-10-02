@@ -43,8 +43,6 @@ const StockCard = React.memo(({ data, action }: StockCardProps) => {
   const profitLoss = currentValue - investmentAmount;
   const profitLossPercentage = investmentAmount !== 0 ? (profitLoss / investmentAmount) * 100 : 0;
 
-  console.log("profitLoss", profitLoss);
-
   // Format the percentage change
   const formattedPercentageChange = new Intl.NumberFormat("en-US", {
     style: "percent",

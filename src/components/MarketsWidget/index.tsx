@@ -5,26 +5,21 @@ import { Box, Grid, Skeleton } from "@mui/material";
 import { Bar } from "@master-chief/alpaca";
 import { GetAccountWatchlistById, GetAccountWatchlists } from "../../services/account.service";
 import { GetBars, GetLatestPrice } from "../../services/markets.service";
-import { CreateOrderData } from "../../services/orders.service";
-import { IOrderQuery } from "../../interfaces/alpaca";
-import { handleNotify } from "../../redux/helpers";
-import { ToastTypes } from "../../interfaces/notifications";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import { stockList } from "../../data/stock";
 import StockCard from "../Stock/stockCard";
 import { Stock } from "../../interfaces/stock";
-import Alert from "../Alert";
-import { setRefresh } from "../../redux/alpacaSlice";
 import { RootState } from "../../redux/store";
 import { ITransaction } from "../../interfaces/alpaca"; // Make sure this import exists
+import StockDetail from "../Stock/StockDetail/index";
 
-const BUY_AMOUNT = 100;
 const MarketWidget = React.memo(() => {
   const isFirstRender = useRef(true);
-  const dispatch = useAppDispatch();
+
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
-  const [openConfirmPrompt, setOpenConfirmPrompt] = useState(false);
+  const [openStockDetail, setOpenStockDetail] = useState(false);
+
   const transactions = useAppSelector((state: RootState) => state.alpaca.transactions);
 
   const mergeStocksWithTransactions = (stocks: Stock[], transactions: ITransaction[]): Stock[] => {
@@ -82,44 +77,14 @@ const MarketWidget = React.memo(() => {
     setStocks(mergedStocks);
   };
 
-  const createNewOrder = async (stock: Stock) => {
-    const order: IOrderQuery = {
-      symbol: stock.symbol,
-      amount: selectedStock?.defaultBuyAmount || 0,
-      qty: 0,
-    };
-
-    const { success, data, message } = await CreateOrderData(order);
-    if (success) {
-      handleCloseConfirm();
-      dispatch(setRefresh({ state: true }));
-      handleNotify("Order created successfully", 4000, ToastTypes.Success, dispatch);
-      return;
-    }
-    handleNotify(message || "failed to create order", 2000, ToastTypes.Error, dispatch);
-    handleCloseConfirm();
-  };
-
-  const confirmNewOrder = async () => {
-    if (selectedStock === null) {
-      console.log("selectedStock is null");
-      return;
-    }
-    await createNewOrder(selectedStock);
-  };
-
-  const showConfirmOrder = (stock: Stock) => {
+  const showStockDetail = (stock: Stock) => {
     setSelectedStock(stock);
-    handleOpenConfirm();
+    setOpenStockDetail(true);
   };
 
-  const handleOpenConfirm = async () => {
-    setOpenConfirmPrompt(true);
-  };
-
-  const handleCloseConfirm = () => {
+  const handleCloseStockDetail = () => {
     setSelectedStock(null);
-    setOpenConfirmPrompt(false);
+    setOpenStockDetail(false);
   };
 
   useEffect(() => {
@@ -173,7 +138,7 @@ const MarketWidget = React.memo(() => {
             {stocks.length > 0 &&
               stocks.map((x: Stock, i: number) => (
                 <Grid item xs={12} sm={5.9} md={5.9} lg={5.9} className="item" key={`${x.symbol}_${i}`}>
-                  <StockCard data={x} action={showConfirmOrder} />
+                  <StockCard data={x} action={showStockDetail} />
                 </Grid>
               ))}
 
@@ -190,18 +155,17 @@ const MarketWidget = React.memo(() => {
         </div>
       </Box>
 
-      <Alert
-        open={openConfirmPrompt}
-        texts={{
-          main:
-            selectedStock !== null ? `Buy $${selectedStock?.defaultBuyAmount} worth of ${selectedStock?.symbol}?` : "",
-          message: "Kindly review your order and proceed to buy.",
-          buttonText: "Proceed",
-        }}
-        confirmCallback={confirmNewOrder}
-        denyCallback={handleCloseConfirm}
-        closeCallback={handleCloseConfirm}
+      <StockDetail
+        open={openStockDetail}
+        handleClose={handleCloseStockDetail}
+        refresh={() => {}}
+        data={selectedStock}
+        isDraggable={true}
       />
+
+      {/* <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={openStockDetail}>
+        
+      </Backdrop> */}
     </React.Fragment>
   );
 });

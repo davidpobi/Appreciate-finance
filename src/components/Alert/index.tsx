@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button, CircularProgress, Divider } from "@mui/material";
+import { Button, CircularProgress, Divider, useTheme } from "@mui/material";
 
 export interface AlertProps {
   open: boolean;
@@ -27,6 +27,7 @@ const button = {
 };
 
 const Alert = ({ open, texts, confirmCallback, denyCallback, closeCallback }: AlertProps) => {
+  const theme = useTheme();
   const [isOpen, setIsOpen] = React.useState(open);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,7 +67,8 @@ const Alert = ({ open, texts, confirmCallback, denyCallback, closeCallback }: Al
               md: "270px",
             },
             borderRadius: "15px",
-            backgroundColor: "white",
+            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.paper : "white",
+            backgroundImage: "none",
           },
         }}
       >
@@ -103,7 +105,13 @@ const Alert = ({ open, texts, confirmCallback, denyCallback, closeCallback }: Al
             </DialogActions>{" "}
           </>
         ) : (
-          <DialogContent sx={{ justifyContent: "center", display: "flex", padding: "20px 0px 20px 0px" }}>
+          <DialogContent
+            sx={{
+              justifyContent: "center",
+              display: "flex",
+              padding: "20px 0px 20px 0px",
+            }}
+          >
             <DialogContentText id="alert-dialog-description" sx={{ padding: "0.5rem" }}>
               <CircularProgress sx={{ color: "rgb(87, 87, 238)" }} size={30} />
             </DialogContentText>

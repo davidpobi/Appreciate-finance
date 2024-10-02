@@ -1,1 +1,1 @@
-export const AppTitle: string = "appreciate.ai";
+export const AppTitle: string = "appreciate.finance";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button, IconButton, SxProps } from "@mui/material";
 import React, { useState } from "react";
 import EyeIcon from "@mui/icons-material/Visibility";
 
@@ -20,6 +20,7 @@ export interface InputProps {
   onKeyDown?: (e: React.ChangeEvent<any>) => void;
   classes?: string;
   rightIcon?: React.ReactNode;
+  sx?: SxProps;
 }
 const Input = ({
   label,
@@ -36,6 +37,7 @@ const Input = ({
   onKeyDown,
   classes,
   rightIcon,
+  sx,
 }: InputProps) => {
   const [showText, setShowText] = useState(false);
 
@@ -121,6 +123,14 @@ const Input = ({
           color: "red",
         },
         mb: 0,
+        ".field[type=number]": {
+          MozAppearance: "textfield",
+        },
+        ".field[type=number]::-webkit-outer-spin-button, .field[type=number]::-webkit-inner-spin-button": {
+          WebkitAppearance: "none",
+          margin: 0,
+        },
+        ...sx,
       }}
     >
       <label className="input-label">{label}</label>
