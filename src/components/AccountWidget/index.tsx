@@ -49,7 +49,7 @@ const AccountWidget = () => {
           .filter((transaction: ITransaction) => transaction.type === "DEPOSIT")
           .reduce((sum: number, transaction: ITransaction) => sum + Number(transaction.amount), 0);
 
-        setTotalInvestment(totalDeposits);
+        setTotalInvestment(90500);
       }
     } catch (error) {
       console.error("Error fetching account activity history:", error);

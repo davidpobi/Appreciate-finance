@@ -13,7 +13,9 @@ This application interfaces with the Alpaca Trading API and was created to enhan
 Responsive on desktop and mobile devices. Tablet screens coming soon.
 
 
-![Preview](https://firebasestorage.googleapis.com/v0/b/appreciate-4ab8c.appspot.com/o/Content%2FScreenshot%202024-09-26%20at%2023.51.12.png?alt=media&token=8e6667e8-8a0c-4402-b0e5-ae12070a6769)
+![Preview](https://firebasestorage.googleapis.com/v0/b/appreciate-4ab8c.appspot.com/o/Content%2FScreenshot%202024-10-02%20at%2021.08.31.png?alt=media&token=54807a51-3660-422a-b586-2ddb49acea6a)
+
+![Preview](https://firebasestorage.googleapis.com/v0/b/appreciate-4ab8c.appspot.com/o/Content%2FScreenshot%202024-10-02%20at%2021.09.19.png?alt=media&token=1870b0c4-772d-4cd1-a084-9fc278de0445)
 
 
 
